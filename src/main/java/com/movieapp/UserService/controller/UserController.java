@@ -1,5 +1,6 @@
 package com.movieapp.UserService.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.movieapp.UserService.dto.Users;
 import com.movieapp.UserService.exception.UserAlreadyExists;
 import com.movieapp.UserService.service.UserService;
@@ -27,6 +28,8 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.CREATED).body(userDetails);
         } catch (UserAlreadyExists e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
         }
 
     }
